@@ -47,7 +47,7 @@ cd terraform
 terraform init
 terraform apply
 ```
-Step 2: Configure Servers using Ansible
+### Step 2: Configure Servers using Ansible
 
 ```bash
 cd ansible
@@ -55,13 +55,13 @@ ansible-playbook -i inventory.ini playbook.yml
 ```
 
 
-Output
+### Output
 
 Nginx web page accessible via ALB DNS
 
 Load balanced traffic across two EC2 instances
 
-Notes
+### Notes
 
 Terraform state files and SSH keys are excluded using .gitignore
 
