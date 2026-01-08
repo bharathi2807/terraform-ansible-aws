@@ -73,14 +73,20 @@ terraform-ansible-aws/
 
 ## How to Run
 
-### 1. Provision Infrastructure
+### 1. Clone the repo
+```bash
+git clone https://github.com/bharathi2807/terraform-ansible-aws.git
+cd terraform-ansible-aws-main
+```
+
+### 2. Provision Infrastructure
 ```bash
 cd terraform
 terraform init
 terraform apply
 ```
 
-### 2. Configure Servers using Ansible
+### 3. Configure Servers using Ansible
 ```bash
 cd ansible
 ansible-playbook -i inventory.ini playbook.yml
