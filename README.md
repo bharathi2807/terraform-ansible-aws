@@ -46,17 +46,23 @@ The setup creates a highly available web application using two EC2 instances beh
 cd terraform
 terraform init
 terraform apply
+```
 Step 2: Configure Servers using Ansible
-bash
-Copy code
+
+```bash
 cd ansible
 ansible-playbook -i inventory.ini playbook.yml
+```
+
+
 Output
+
 Nginx web page accessible via ALB DNS
 
 Load balanced traffic across two EC2 instances
 
 Notes
+
 Terraform state files and SSH keys are excluded using .gitignore
 
 Inventory is generated dynamically using Terraform templates
@@ -66,7 +72,3 @@ Designed for learning and portfolio demonstration purposes
 Author
 Jeeva Bharathi
 Aspiring DevOps / Cloud Engineer
-
-yaml
-Copy code
----
