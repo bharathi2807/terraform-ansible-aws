@@ -57,19 +57,19 @@ ansible-playbook -i inventory.ini playbook.yml
 
 ### Output
 
-Nginx web page accessible via ALB DNS
+* Nginx web page accessible via ALB DNS
 
-Load balanced traffic across two EC2 instances
+* Load balanced traffic across two EC2 instances
 
 ### Notes
 
-Terraform state files and SSH keys are excluded using .gitignore
+* Terraform state files and SSH keys are excluded using .gitignore
 
-Inventory is generated dynamically using Terraform templates
+* Inventory is generated dynamically using Terraform templates
 
-Designed for learning and portfolio demonstration purposes
+* Designed for learning and portfolio demonstration purposes
 
 Author
 
-Your Name
-Aspiring DevOps / Cloud Engineer
+###Jeeva Bharathi
+###Aspiring DevOps / Cloud Engineer
