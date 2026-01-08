@@ -70,5 +70,6 @@ Inventory is generated dynamically using Terraform templates
 Designed for learning and portfolio demonstration purposes
 
 Author
-Jeeva Bharathi
+
+Your Name
 Aspiring DevOps / Cloud Engineer
