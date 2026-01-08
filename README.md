@@ -69,7 +69,7 @@ ansible-playbook -i inventory.ini playbook.yml
 
 * Designed for learning and portfolio demonstration purposes
 
-Author
+### Author
 
-###Jeeva Bharathi
-###Aspiring DevOps / Cloud Engineer
+Jeeva Bharathi
+Aspiring DevOps / Cloud Engineer
