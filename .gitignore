@@ -13,4 +13,3 @@ ansible/inventory.ini
 # OS / Editor
 .vscode/
 .DS_Store
-
