@@ -1,6 +1,6 @@
-# Terraform + Ansible AWS Infrastructure Automation
+# 🌍  Terraform + Ansible AWS Infrastructure Automation
 
-## Overview
+## 🚀 Project Overview
 This project demonstrates an **end-to-end DevOps workflow** where AWS infrastructure is provisioned using **Terraform** and configured automatically using **Ansible**.
 
 The setup creates a **highly available web application** using two EC2 instances behind an **Application Load Balancer (ALB)**, all deployed inside a custom VPC.
@@ -18,15 +18,47 @@ The setup creates a **highly available web application** using two EC2 instances
 
 ---
 
-## Tools & Technologies
-- **AWS** (EC2, VPC, ALB, Security Groups, S3)  
-- **Terraform** (Infrastructure as Code)  
-- **Ansible** (Configuration Management)  
-- **Nginx**  
-- **Linux** (Amazon Linux)  
-- **Git & GitHub**  
+## 🧰 Tools & Technologies
+
+* **Terraform** — Infrastructure provisioning
+* **Ansible** — Configuration management
+* **AWS** (EC2, VPC, ALB, Security Groups, S3)  
+* **Nginx** — Web server
+* **Linux** (Amazon Linux) 
+* **Git & GitHub**  
 
 ---
+
+## 🧱 Project Structure
+
+```
+
+terraform-ansible-aws/
+├── terraform/
+│   ├── main.tf
+│   ├── output.tf
+|   |-- userdata.sh
+│   ├── variables.tf
+│   └── provider.tf
+│
+├── ansible/
+│   ├── ansible.cfg
+│   ├── inventory.ini.tpl
+│   ├── playbook.yml
+│   └── roles/
+│       └── webserver/
+│           ├── tasks/
+│           │   └── main.yml
+│           └── files/
+│               ├── index.html
+│
+└── README.md
+
+
+```
+
+---
+
 
 ## Project Flow
 1. Terraform provisions AWS infrastructure:
@@ -60,7 +92,7 @@ ansible-playbook -i inventory.ini playbook.yml
 
 * Load balanced traffic across two EC2 instances
 
-Notes
+### Notes
 
 * Terraform state files and SSH keys are excluded using .gitignore
 
@@ -68,8 +100,11 @@ Notes
 
 * Designed for learning and portfolio demonstration purposes
 
-### Author
+---
 
-Jeeva Bharathi
+## 👨‍💻 Author
 
+**Jeeva Bharathi**
 Aspiring DevOps / Cloud Engineer
+
+---
