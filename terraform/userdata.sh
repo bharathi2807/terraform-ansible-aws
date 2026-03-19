@@ -1,5 +1,10 @@
-user_data = <<-EOF
 #!/bin/bash
-dnf update -y || apt update -y
-dnf install -y python3 || apt install -y python3
-EOF
+set -e
+
+dnf update -y
+dnf install -y nginx python3
+
+systemctl start nginx
+systemctl enable nginx
+
+echo "Healthy - $(hostname)" > /usr/share/nginx/html/index.html

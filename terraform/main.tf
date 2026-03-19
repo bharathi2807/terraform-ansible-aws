@@ -83,31 +83,6 @@ resource "aws_security_group" "sg" {
         Name = "my_vpc_sg"
     }
 }
-resource "aws_s3_bucket" "s3" {
-    bucket = var.s3_bucket
-}
-resource "aws_instance" "webserver1" {
-  ami           = var.ec2_instance_ami
-  instance_type = var.ec2_instance_type
-  subnet_id     = aws_subnet.my_subnet.id
-  vpc_security_group_ids = [aws_security_group.sg.id]
-  key_name               = var.key_name
-  user_data              = file("userdata.sh")
-    tags = {
-        Name = "my_vpc_server1"
-    }
-}
-resource "aws_instance" "webserver2" {
-  ami           = var.ec2_instance_ami
-  instance_type = var.ec2_instance_type
-  subnet_id     = aws_subnet.my_subnet2.id
-  vpc_security_group_ids = [aws_security_group.sg.id]
-  key_name               = var.key_name
-  user_data              = file("userdata.sh")
-    tags = {
-        Name = "my_vpc_server2"
-    }
-}
 resource "aws_alb" "alb" {
     name               = "my-vpc-alb"
     internal           = false
@@ -135,16 +110,6 @@ resource "aws_alb_target_group" "tg" {
         Name = "my_vpc_tg"
     }
 }
-resource "aws_alb_target_group_attachment" "attach1" {
-    target_group_arn = aws_alb_target_group.tg.arn
-    target_id        = aws_instance.webserver1.id
-    port             = 80
-}
-resource "aws_alb_target_group_attachment" "attach2" {
-    target_group_arn = aws_alb_target_group.tg.arn
-    target_id        = aws_instance.webserver2.id
-    port             = 80
-}
 resource "aws_alb_listener" "listener" {
     load_balancer_arn = aws_alb.alb.arn
     port              = "80"
@@ -155,11 +120,53 @@ resource "aws_alb_listener" "listener" {
         target_group_arn = aws_alb_target_group.tg.arn
     }
 }
-#create Ansible inventory file
-resource "local_file" "ansible_inventory" {
-  filename = "${path.module}/../ansible/inventory.ini"
-  content  = templatefile("${path.module}/../ansible/inventory.ini.tpl", {
-    web1_ip = aws_instance.webserver1.public_ip
-    web2_ip = aws_instance.webserver2.public_ip
-  })
+resource "aws_launch_template" "lt" {
+  name_prefix   = "my-launch-template"
+  image_id      = var.ec2_instance_ami
+  instance_type = var.ec2_instance_type
+  key_name      = var.key_name
+
+  network_interfaces {
+    associate_public_ip_address = true
+    security_groups             = [aws_security_group.sg.id]
+  }
+
+  user_data = base64encode(file("userdata.sh"))
+}
+resource "aws_autoscaling_group" "asg" {
+  desired_capacity     = 2
+  max_size             = 3
+  min_size             = 1
+  vpc_zone_identifier  = [
+    aws_subnet.my_subnet.id,
+    aws_subnet.my_subnet2.id
+  ]
+
+  target_group_arns = [aws_alb_target_group.tg.arn]
+  health_check_type         = "ELB"
+  health_check_grace_period = 300
+
+  launch_template {
+    id      = aws_launch_template.lt.id
+    version = "$Latest"
+  }
+
+  tag {
+    key                 = "Name"
+    value               = "my-asg-instance"
+    propagate_at_launch = true
+  }
+}
+# Scaling Policy
+resource "aws_autoscaling_policy" "cpu_policy" {
+  name                   = "cpu-scaling"
+  autoscaling_group_name = aws_autoscaling_group.asg.name
+  policy_type            = "TargetTrackingScaling"
+
+  target_tracking_configuration {
+    predefined_metric_specification {
+      predefined_metric_type = "ASGAverageCPUUtilization"
+    }
+    target_value = 60.0
+  }
 }

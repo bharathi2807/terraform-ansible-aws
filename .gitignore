@@ -4,6 +4,12 @@ terraform/terraform.tfstate
 terraform/terraform.tfstate.*
 terraform/*.tfvars
 
+# Terraform
+bootstrap/.terraform/
+bootstrap/terraform.tfstate
+bootstrap/terraform.tfstate.*
+bootstrap/*.tfvars
+
 # Ansible
 ansible/inventory.ini
 
@@ -13,3 +19,8 @@ ansible/inventory.ini
 # OS / Editor
 .vscode/
 .DS_Store
+
+#Python virtual environments
+venv/
+.venv/
+env/
