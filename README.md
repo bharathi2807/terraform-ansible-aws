@@ -1,5 +1,5 @@
 
-# Cloud Infrastructure Automation for E-Commerce Platform
+# Cloud Infrastructure Automation using Terraform and Ansible on AWS
 
 This project demonstrates end-to-end infrastructure automation on AWS using Terraform and configuration management using Ansible. It provisions a highly available and scalable architecture with Auto Scaling and Load Balancing.
 
